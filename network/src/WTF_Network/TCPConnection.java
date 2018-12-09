@@ -3,7 +3,6 @@ package WTF_Network;
 import java.io.*;
 import java.net.Socket;
 import java.nio.charset.Charset;
-import java.util.EventListener;
 
 public class TCPConnection {
 
@@ -42,6 +41,7 @@ public class TCPConnection {
     }
 
     public synchronized  void sendString(String value){
+
         try {
             out.write(value + "\r\n");
             out.flush();
@@ -63,6 +63,6 @@ public class TCPConnection {
 
     @Override
     public String toString() {
-        return "TCPConnection: " + socket.getInetAddress() + ": " + socket.getPort(); // TODO: 02.12.2018 add client name(sql)
+        return "TCPConnection: " + socket.getInetAddress() + ": " + socket.getPort();
     }
 }

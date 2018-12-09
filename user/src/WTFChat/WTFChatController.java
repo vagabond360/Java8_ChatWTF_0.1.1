@@ -4,17 +4,19 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import Sign_SignUP.Sign.Main;
 import Sign_SignUP.Sign.SignController;
 import WTF_Network.TCPConnection;
 import WTF_Network.TCPConnectionListener;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
-public class WTFChatController implements TCPConnectionListener {
+public class WTFChatController implements TCPConnectionListener, Initializable {
 
     @FXML
     private ResourceBundle resources;
@@ -46,10 +48,15 @@ public class WTFChatController implements TCPConnectionListener {
         }
     }
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        SignController signController = new SignController();
+        System.out.println(signController.getUser());
+    }
+
     @FXML
     void btnSend(ActionEvent actionEvent) {
-        this.
-        SignController signController = new SignController();
+
         String message = txtField.getText();
         if (message.equals("")){
             txtField.setPromptText("Message cannot be empty!");
@@ -64,7 +71,7 @@ public class WTFChatController implements TCPConnectionListener {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                txtArea.appendText(signController.UserName() +  ":  " + message + "\n"); // TODO: 02.12.2018 UserName + message
+                txtArea.appendText(signController.getUser() + ":  " + message + "\n");
             }
         });
     }
@@ -88,4 +95,6 @@ public class WTFChatController implements TCPConnectionListener {
     public void onException(TCPConnection tcpConnection, Exception e) {
         printMessage("Connection exeption: " + e);
     }
+
+
 }

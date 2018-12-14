@@ -1,20 +1,18 @@
 package WTFChat;
 
-import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
-
-import Sign_SignUP.Sign.Main;
 import Sign_SignUP.Sign.SignController;
 import WTF_Network.TCPConnection;
 import WTF_Network.TCPConnectionListener;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 public class WTFChatController implements TCPConnectionListener, Initializable {
 
@@ -33,12 +31,12 @@ public class WTFChatController implements TCPConnectionListener, Initializable {
     @FXML
     private Button btnSend;
 
-
-    private final int PORT = 8189;
+    private final int PORT = 8188;
     private final String IP_ADDR = "192.168.0.100";
 
+    private SignController signController = new SignController();
+    public String userName = signController.getUser();
     private TCPConnection connection;
-    private String UserName2;
 
     {
         try {
@@ -50,28 +48,24 @@ public class WTFChatController implements TCPConnectionListener, Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        SignController signController = new SignController();
-        System.out.println(signController.getUser());
+
     }
 
     @FXML
-    void btnSend(ActionEvent actionEvent) {
-
+    void btnSend() {
         String message = txtField.getText();
         if (message.equals("")){
             txtField.setPromptText("Message cannot be empty!");
         }
         txtField.setText(null);
-        connection.sendString(message);
+        connection.sendString(signController.getUser(), message);
     }
 
     public synchronized void printMessage(String message){
-        SignController signController = new SignController();
-
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                txtArea.appendText(signController.getUser() + ":  " + message + "\n");
+                txtArea.appendText(message + "\n");
             }
         });
     }

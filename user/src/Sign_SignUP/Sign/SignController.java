@@ -1,11 +1,5 @@
 package Sign_SignUP.Sign;
 
-import java.io.IOException;
-import java.net.URL;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ResourceBundle;
-
 import Sign_SignUP.DBConnect.DatabaseHandler;
 import Sign_SignUP.DBConnect.User;
 import Sign_SignUP.Sign.Animation.Shake;
@@ -20,6 +14,12 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+import java.net.URL;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ResourceBundle;
+
 public class SignController implements Initializable {
 
     @FXML
@@ -33,8 +33,6 @@ public class SignController implements Initializable {
 
     @FXML
     private Button signUpBtn;
-
-    public String Userrr;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -76,7 +74,6 @@ public class SignController implements Initializable {
         }
 
         if (counter >= 1) {
-//            setUserrr(sign_loginField.getText());
             openNewScene("/WTFChat/wtfChat.fxml");
         } else {
             Shake userLoginAnim = new Shake(sign_loginField);

@@ -17,7 +17,7 @@ public class ChatServer implements TCPConnectionListener {
 
     private ChatServer(){
         System.out.println("Server running...");
-        try (ServerSocket serverSocket = new ServerSocket(8189)) {
+        try (ServerSocket serverSocket = new ServerSocket(8188)) {
             while (true){
                 try {
                     new TCPConnection(this ,serverSocket.accept());
@@ -30,17 +30,15 @@ public class ChatServer implements TCPConnectionListener {
         }
     }
 
-
     @Override
     public void onConnectionReady(TCPConnection tcpConnection) {
         connections.add(tcpConnection);
         sendToAllConnections("Client connected: " + tcpConnection);
     }
 
-
     @Override
     public void onReceiveString(TCPConnection tcpConnection, String value) {
-        sendToAllConnections(value); // TODO: 29.11.2018  add sql client name
+        sendToAllConnections(value);
     }
 
     @Override
@@ -56,7 +54,7 @@ public class ChatServer implements TCPConnectionListener {
 
     private void sendToAllConnections(String value) {
         for (int i = 0; i < connections.size(); i++) {
-            connections.get(i).sendString(  value); // TODO: 29.11.2018 add sql client name
+            connections.get(i).sendString("", value);
         }
     }
 }

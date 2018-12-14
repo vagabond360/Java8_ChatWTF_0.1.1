@@ -1,5 +1,6 @@
 package WTF_Network;
 
+
 import java.io.*;
 import java.net.Socket;
 import java.nio.charset.Charset;
@@ -40,16 +41,14 @@ public class TCPConnection {
         rxThread.start();
     }
 
-    public synchronized  void sendString(String value){
-
+    public synchronized void sendString(String userName, String value) {
         try {
-            out.write(value + "\r\n");
+            out.write(userName + ":" + value + "\r\n");
             out.flush();
         } catch (IOException e) {
             eventListener.onException(TCPConnection.this,e);
             disconnect();
         }
-
     }
 
     private synchronized void disconnect() {

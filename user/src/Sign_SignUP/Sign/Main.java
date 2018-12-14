@@ -8,7 +8,7 @@ import javafx.stage.Stage;
 
 
 public class Main extends Application {
-    public static String params = "s";
+    public static String params = "neNull";
     @Override
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("sign.fxml"));
